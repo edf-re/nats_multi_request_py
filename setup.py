@@ -14,7 +14,7 @@ setup(
     name="nats-request-asap",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    version="0.1",
+    version="0.2",
     license="BSD-2-Clause",
     description="Python function to return one or multiple responses to a "
     "NATS request as soon as possible. ",
