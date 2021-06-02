@@ -15,9 +15,36 @@ else:
     from typing import Awaitable, List
 
 
-async def get_responses(expected: int, queue: Queue[Msg], responses: List[Msg]):
-    for _ in range(expected):
-        responses.append(await queue.get())
+async def wait_for_responses(
+    nats_conn, subject, payload, timeout, expected
+) -> List[Msg]:
+    responses = []
+
+    # Use this queue as a cancel-able async sleep.
+    # When add_to_list adds an element to it, stop sleeping.
+    wait_queue: Queue[str] = Queue()
+
+    def add_to_list(msg: Msg):
+        responses.append(msg)
+        if len(responses) == expected:
+            wait_queue.put_nowait("done")
+
+    sid = await nats_conn.request(
+        subject,
+        payload,
+        timeout=timeout,
+        expected=expected,
+        cb=add_to_list,
+    )
+
+    # Sleep
+    try:
+        await asyncio.wait_for(wait_queue.get(), timeout)
+    except asyncio.TimeoutError:
+        pass
+
+    await nats_conn.unsubscribe(sid)
+    return responses
 
 
 async def request(
@@ -46,26 +73,7 @@ async def request(
     assert int(expected) == expected, "expected must be int"
     assert expected > 0, "expected must be greater than 0"
 
-    queue: Queue[Msg] = Queue()
-
-    def add_to_queue(msg: Msg):
-        queue.put_nowait(msg)
-
-    sid = await nats_conn.request(
-        subject,
-        payload,
-        timeout=timeout,
-        expected=expected,
-        cb=add_to_queue,
-    )
-
-    responses: List[Msg] = []
-    try:
-        await asyncio.wait_for(get_responses(expected, queue, responses), timeout)
-    except asyncio.TimeoutError:
-        pass
-
-    await nats_conn.unsubscribe(sid)
+    responses = await wait_for_responses(nats_conn, subject, payload, timeout, expected)
 
     if len(responses) == 0 or (len(responses) < expected and error_if_lt_expected):
         raise ErrTimeout
