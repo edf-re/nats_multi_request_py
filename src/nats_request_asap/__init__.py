@@ -1,7 +1,7 @@
 import asyncio
 import sys
-from asyncio import Queue
-from typing import Union
+from asyncio import Future, Queue
+from typing import Any, Union
 
 from nats.aio.client import Client as NATSClient
 from nats.aio.client import Msg
@@ -20,14 +20,12 @@ async def wait_for_responses(
 ) -> List[Msg]:
     responses = []
 
-    # Use this queue as a cancel-able async sleep.
-    # When add_to_list adds an element to it, stop sleeping.
-    wait_queue: Queue[str] = Queue()
+    sleep_timeout: Future[Any] = asyncio.ensure_future(asyncio.sleep(timeout))
 
     def add_to_list(msg: Msg):
         responses.append(msg)
         if len(responses) == expected:
-            wait_queue.put_nowait("done")
+            sleep_timeout.cancel()
 
     sid = await nats_conn.request(
         subject,
@@ -37,10 +35,9 @@ async def wait_for_responses(
         cb=add_to_list,
     )
 
-    # Sleep
     try:
-        await asyncio.wait_for(wait_queue.get(), timeout)
-    except asyncio.TimeoutError:
+        await sleep_timeout
+    except asyncio.CancelledError:
         pass
 
     await nats_conn.unsubscribe(sid)
