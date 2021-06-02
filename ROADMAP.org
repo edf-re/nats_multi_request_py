@@ -1,0 +1,4 @@
+* TODO rewrite using just publish(reply=XXX) and subscribe for nats library v1
+- subscribe in v1 returns a Subscription object, not an sid integer
+- publish_request is removed in v1 and replaced with a reply kwrg to publish
+* TODO write a Typescript version

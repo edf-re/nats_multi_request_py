@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asyncio-nats-client = "*"
+
+[dev-packages]
+mypy = "*"
+black = "*"
+isort = "*"
+pydocstyle = "*"
+pytest = "*"
+pytest-subtests = "*"
+pytest-cov = "*"
+pylint = "*"
+python-githooks = "*"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
