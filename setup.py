@@ -14,11 +14,12 @@ setup(
     name="nats-request-asap",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    version="0.2",
+    version="0.2.1",
     license="BSD-2-Clause",
     description="Python function to return one or multiple responses to a "
     "NATS request as soon as possible. ",
     long_description=read("README.md"),
+    long_description_content_type="text/markdown",
     author="Hugo O. Rivera",
     author_email="hugo@roguh.com",
     url="https://github.com/roguh/nats_request_asap",
