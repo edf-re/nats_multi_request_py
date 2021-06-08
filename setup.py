@@ -15,7 +15,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     version="0.2.1",
-    license="BSD-2-Clause",
+    license="MIT License",
     description="Python function to return one or multiple responses to a "
     "NATS request as soon as possible. ",
     long_description=read("README.md"),

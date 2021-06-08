@@ -36,3 +36,7 @@ Return a list of NATS `Msg`s.
  <Msg: subject='_INBOX.tdSY0nNLoa9bmNqw9moCwC' reply='' data='{"initial_...'>,
  <Msg: subject='_INBOX.tdSY0nNLoa9bmNqw9moCwC' reply='' data='{"initial_...'>]
 ```
+
+## License
+
+This project is under the MIT License. See [LICENSE.txt](./LICENSE.txt).
