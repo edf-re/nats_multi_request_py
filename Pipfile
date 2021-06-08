@@ -5,12 +5,7 @@ name = "pypi"
 
 [packages]
 asyncio-nats-client = "*"
-sphinx = "*"
-sphinxcontrib-restbuilder = "*"
-sphinxcontrib-programoutput = "*"
-autodoc-pydantic = "*"
 nats-request-asap = {editable = true, path = "."}
-sphinx-rtd-theme = "*"
 
 [dev-packages]
 mypy = "*"
@@ -22,6 +17,10 @@ pytest-subtests = "*"
 pytest-cov = "*"
 pylint = "*"
 python-githooks = "*"
+sphinx = "*"
+sphinxcontrib-restbuilder = "*"
+sphinxcontrib-programoutput = "*"
+sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.9"
