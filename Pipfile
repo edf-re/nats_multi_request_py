@@ -10,6 +10,7 @@ sphinxcontrib-restbuilder = "*"
 sphinxcontrib-programoutput = "*"
 autodoc-pydantic = "*"
 nats-request-asap = {editable = true, path = "."}
+sphinx-rtd-theme = "*"
 
 [dev-packages]
 mypy = "*"
