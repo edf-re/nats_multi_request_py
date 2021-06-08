@@ -1,6 +1,12 @@
 # nats_request_asap
 
+[![Documentation Status](https://readthedocs.org/projects/nats-request-asap/badge/?version=latest)](https://nats-request-asap.readthedocs.io/en/latest/?badge=latest)
+
 Python function to return one or multiple responses to a NATS request as soon as possible.
+
+## Documentation
+
+[nats-request-asap.readthedocs.io](https://nats-request-asap.readthedocs.io/)
 
 ## Installation
 
