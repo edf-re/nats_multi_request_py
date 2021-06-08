@@ -20,6 +20,7 @@ async def wait_for_responses(
 ) -> List[Msg]:
     responses = []
 
+    # Convert asyncio.sleep() into a future so we can cancel it.
     sleep_timeout: Future[Any] = asyncio.ensure_future(asyncio.sleep(timeout))
 
     def add_to_list(msg: Msg):
@@ -55,18 +56,17 @@ async def request(
     """Make a request to NATS. Return response as soon as it arrives. If
     expected > 1, return multiple responses.
 
-    subject - NATS subject
-    payload - NATS payload, should be bytes
-    error_if_lt_expected - Raise error is less than `expected` responses
+    :param subject: NATS subject
+    :param payload: NATS payload, should be bytes
+    :param error_if_lt_expected: Raise error is less than `expected` responses \
         received. Converted to boolean
-    timeout - Time to wait for `expected` responses.
-    expected - Expected number of messages.
+    :param timeout: Time to wait for `expected` responses.
+    :param expected: Expected number of messages.
 
-    returns:
-    Msg - if expected == 1
-    List[Msg] - if expected > 1
+    :returns: Msg if expected == 1
+    :returns: List[Msg] if expected > 1
 
-    raises nats.aio.errors.ErrTimeout if no responses received or if
+    :raises: nats.aio.errors.ErrTimeout if no responses received or if \
     error_if_lt_expected is True and less than expected responses received.
     """
     error_if_lt_expected = bool(error_if_lt_expected)

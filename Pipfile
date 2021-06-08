@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 asyncio-nats-client = "*"
+sphinx = "*"
+sphinxcontrib-restbuilder = "*"
+sphinxcontrib-programoutput = "*"
+autodoc-pydantic = "*"
+nats-request-asap = {editable = true, path = "."}
 
 [dev-packages]
 mypy = "*"
