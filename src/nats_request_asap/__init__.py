@@ -66,7 +66,7 @@ async def request(
     :returns: Msg if expected == 1
     :returns: List[Msg] if expected > 1
 
-    :raises: nats.aio.errors.ErrTimeout if no responses received or if \
+    :raises nats.aio.errors.ErrTimeout: if no responses received or if \
     error_if_lt_expected is True and less than expected responses received.
     """
     error_if_lt_expected = bool(error_if_lt_expected)
