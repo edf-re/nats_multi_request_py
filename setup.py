@@ -11,7 +11,7 @@ def read(*names, **kwargs):
 
 
 setup(
-    name="nats-request-asap",
+    name="nats-multi-request",
     packages=find_packages("src"),
     package_dir={"": "src"},
     version=read("VERSION"),
@@ -21,8 +21,8 @@ setup(
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="Hugo O. Rivera",
-    author_email="hugo@roguh.com",
-    url="https://github.com/roguh/nats_request_asap",
+    author_email="hugo.rivera@powerflex.com",
+    url="https://github.com/edf-re/nats_multi_request_py",
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -36,12 +36,13 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Utilities",
     ],
     project_urls={
-        "Issue Tracker": "https://github.com/roguh/nats_request_asap/issues",
+        "Issue Tracker": "https://github.com/edf-re/nats_multi_request_py/issues",
     },
     keywords=["NATS", "NATS request", "response as soon as possible", "asap response"],
     python_requires=">2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",

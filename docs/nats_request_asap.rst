@@ -1,4 +1,4 @@
-nats_request_asap
+nats_multi_request
 =================
 
-.. autofunction:: nats_request_asap.request
+.. autofunction:: nats_multi_request.request
