@@ -26,12 +26,14 @@ async def wait_for_responses(
         if len(responses) == expected:
             sleep_timeout.cancel()
 
-    await nats_conn.request(
+    inbox = nats_conn.new_inbox()
+    await nats_conn.publish(
         subject,
         payload,
-        timeout=timeout,
-        cb=add_to_list,
+        reply=inbox,
     )
+
+    await nats_conn.subscribe(inbox, cb=add_to_list)
 
     try:
         await sleep_timeout
