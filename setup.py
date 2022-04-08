@@ -45,7 +45,7 @@ setup(
     },
     keywords=["NATS", "NATS request", "response as soon as possible", "asap response"],
     python_requires=">2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
-    install_requires=["asyncio-nats-client<1.0"],
+    install_requires=["nats-py==2.0.0"],
     extras_require={},
     setup_requires=[],
     entry_points={},

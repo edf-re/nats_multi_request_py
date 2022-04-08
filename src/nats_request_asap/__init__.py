@@ -1,6 +1,6 @@
 import asyncio
 import sys
-from asyncio import Future, Queue
+from asyncio import Future
 from typing import Any, Union
 
 from nats.aio.client import Client as NATSClient
@@ -8,22 +8,20 @@ from nats.aio.client import Msg
 from nats.aio.errors import ErrTimeout
 
 if sys.version_info >= (3, 9):
-    from collections.abc import Awaitable
-
     List = list
 else:
-    from typing import Awaitable, List
+    from typing import List
 
 
 async def wait_for_responses(
-    nats_conn, subject, payload, timeout, expected
+    nats_conn: NATSClient, subject: str, payload: bytes, timeout: float, expected: int
 ) -> List[Msg]:
     responses = []
 
     # Convert asyncio.sleep() into a future so we can cancel it.
     sleep_timeout: Future[Any] = asyncio.ensure_future(asyncio.sleep(timeout))
 
-    def add_to_list(msg: Msg):
+    async def add_to_list(msg: Msg):
         responses.append(msg)
         if len(responses) == expected:
             sleep_timeout.cancel()
@@ -49,9 +47,9 @@ async def request(
     nats_conn: NATSClient,
     subject: str,
     payload: bytes,
-    error_if_lt_expected=False,
-    timeout=0.5,
-    expected=1,
+    error_if_lt_expected: bool = False,
+    timeout: float = 0.5,
+    expected: int = 1,
 ) -> Union[Msg, List[Msg]]:
     """Make a request to NATS. Return response as soon as it arrives. If
     expected > 1, return multiple responses.

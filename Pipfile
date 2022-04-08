@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-asyncio-nats-client = "*"
 nats-request-asap = {editable = true, path = "."}
 
 [dev-packages]
