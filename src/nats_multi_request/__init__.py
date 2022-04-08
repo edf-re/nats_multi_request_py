@@ -26,11 +26,10 @@ async def wait_for_responses(
         if len(responses) == expected:
             sleep_timeout.cancel()
 
-    sid = await nats_conn.request(
+    await nats_conn.request(
         subject,
         payload,
         timeout=timeout,
-        expected=expected,
         cb=add_to_list,
     )
 
@@ -38,8 +37,6 @@ async def wait_for_responses(
         await sleep_timeout
     except asyncio.CancelledError:
         pass
-
-    await nats_conn.unsubscribe(sid)
     return responses
 
 
