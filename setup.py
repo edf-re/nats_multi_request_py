@@ -44,7 +44,7 @@ setup(
     project_urls={
         "Issue Tracker": "https://github.com/edf-re/nats_multi_request_py/issues",
     },
-    keywords=["NATS", "NATS request", "response as soon as possible", "asap response"],
+    keywords=["NATS", "NATS request", "respond as soon as possible", "asap response"],
     python_requires=">2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
     install_requires=["nats-py==2.1.0"],
     extras_require={},

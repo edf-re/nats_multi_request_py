@@ -4,7 +4,7 @@ from asyncio import Future
 from typing import Any, Union
 
 from nats.aio.client import Client as NATSClient
-from nats.aio.client import Msg
+from nats.aio.msg import Msg
 from nats.aio.errors import ErrTimeout
 
 if sys.version_info >= (3, 9):
@@ -26,11 +26,12 @@ async def wait_for_responses(
         if len(responses) == expected:
             sleep_timeout.cancel()
 
-    sid = await nats_conn.request(
-        subject,
-        payload,
-        timeout=timeout,
-        expected=expected,
+    reply_subject = nats_conn.new_inbox()
+
+    await nats_conn.publish(subject, payload, reply=reply_subject)
+
+    subscription = await nats_conn.subscribe(
+        subject=reply_subject,
         cb=add_to_list,
     )
 
@@ -39,7 +40,7 @@ async def wait_for_responses(
     except asyncio.CancelledError:
         pass
 
-    await nats_conn.unsubscribe(sid)
+    await subscription.unsubscribe()
     return responses
 
 

@@ -1,14 +1,6 @@
 setup:
-	pipenv install
+	pipenv install --skip-lock
 
-test-unit:
-	echo TODO
-	exit 1
-
-build-docs:
-	cd docs
-	pipenv run make html
-	
 release:
 	rm -rf dist
 	python3 -m build

@@ -4,25 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-nats-request-asap = {editable = true, path = "."}
+nats-multi-request = {editable = true, path = "."}
 
 [dev-packages]
-mypy = "*"
-black = "*"
-isort = "*"
-pydocstyle = "*"
-pytest = "*"
-pytest-subtests = "*"
-pytest-cov = "*"
-pylint = "*"
-python-githooks = "*"
-sphinx = "*"
-sphinxcontrib-restbuilder = "*"
-sphinxcontrib-programoutput = "*"
-sphinx-rtd-theme = "*"
 
 [requires]
-python_version = "3.9"
-
-[pipenv]
-allow_prereleases = true
+python_version = "3.10"
